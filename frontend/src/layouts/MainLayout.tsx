@@ -12,7 +12,7 @@ import {
   MenuUnfoldOutlined,
   AppstoreOutlined,
 } from '@ant-design/icons'
-import { motion } from 'framer-motion'
+import { motion, AnimatePresence } from 'framer-motion'
 import { themeColors, gradients } from '../theme/config'
 
 const { Header, Sider, Content } = Layout
@@ -53,7 +53,7 @@ const notificationItems = [
 const MainLayout: React.FC<MainLayoutProps> = ({ children, collapsed, onToggle }) => {
   return (
     <Layout style={{ height: '100vh', width: '100vw', overflow: 'hidden', position: 'relative' }}>
-      {/* ===== 动态渐变 Header ===== */}
+      {/* ===== 动态渐变 Header（带流动光效） ===== */}
       <Header
         style={{
           height: 60,
@@ -70,6 +70,18 @@ const MainLayout: React.FC<MainLayoutProps> = ({ children, collapsed, onToggle }
           overflow: 'hidden',
         }}
       >
+        {/* 流动光带 */}
+        <motion.div
+          style={{
+            position: 'absolute',
+            top: 0, left: '-50%',
+            width: '200%', height: '100%',
+            background: 'linear-gradient(90deg, transparent, rgba(26,92,255,0.04), rgba(99,102,241,0.02), transparent)',
+            pointerEvents: 'none',
+          }}
+          animate={{ left: ['-50%', '50%'] }}
+          transition={{ duration: 8, repeat: Infinity, ease: 'linear' }}
+        />
         {/* 顶部光晕装饰 */}
         <div style={{
           position: 'absolute',
