@@ -1,10 +1,11 @@
 import React, { useState } from 'react'
 import { ConfigProvider, theme } from 'antd'
 import zhCN from 'antd/locale/zh_CN'
+import { BrowserRouter } from 'react-router-dom'
 import MainLayout from './layouts/MainLayout'
-import Dashboard from './pages/Dashboard'
-import ParticleBackground from './components/ParticleBackground'
+import ParticleBg from './ui/ParticleBg'
 import { themeColors } from './theme/config'
+import AppRouter from './router'
 
 const App: React.FC = () => {
   const [collapsed, setCollapsed] = useState(false)
@@ -45,26 +46,21 @@ const App: React.FC = () => {
             borderColor: 'rgba(255,255,255,0.04)',
             colorBgContainer: 'transparent',
           },
-          Card: {
-            paddingLG: 20,
-          },
+          Card: { paddingLG: 20 },
           Timeline: {
             itemPaddingBottom: 20,
             tailColor: 'rgba(255,255,255,0.08)',
           },
-          Dropdown: {
-            colorBgElevated: 'rgba(15, 29, 58, 0.95)',
-          },
+          Dropdown: { colorBgElevated: 'rgba(15, 29, 58, 0.95)' },
         },
       }}
     >
-      {/* 粒子背景层 */}
-      <ParticleBackground />
-
-      {/* 主布局 */}
-      <MainLayout collapsed={collapsed} onToggle={() => setCollapsed(!collapsed)}>
-        <Dashboard />
-      </MainLayout>
+      <BrowserRouter>
+        <ParticleBg />
+        <MainLayout collapsed={collapsed} onToggle={() => setCollapsed(!collapsed)}>
+          {AppRouter}
+        </MainLayout>
+      </BrowserRouter>
     </ConfigProvider>
   )
 }
